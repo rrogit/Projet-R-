@@ -84,12 +84,12 @@ xd2.G1 = cbind(d2[,0:30],d2[,32:33])
 xd2.G2 = cbind(d2[,0:31],yd2.G3)
 xd2.G3 = d2[,0:32]
 #Matrice decouper pour les notes de chaques période en 90 % train et 10 % test
-yd2.G1.train = yd2.G1[1:584,]
-yd2.G1.test = yd2.G1[585:649,]
-yd2.G2.train = yd2.G2[1:584,]
-yd2.G2.test = yd2.G2[585:649,]
-yd2.G3.train = yd2.G3[1:584,]
-yd2.G3.test = yd2.G3[585:649,]
+yd2.G1.train = yd2.G1[1:584]
+yd2.G1.test = yd2.G1[585:649]
+yd2.G2.train = yd2.G2[1:584]
+yd2.G2.test = yd2.G2[585:649]
+yd2.G3.train = yd2.G3[1:584]
+yd2.G3.test = yd2.G3[585:649]
 
 d2.G1.train = d2[1:584,]
 d2.G1.test = d2[585:659,]
