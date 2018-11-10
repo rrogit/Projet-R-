@@ -116,4 +116,5 @@ summary(G1.lm)
 summary(G2.lm)
 summary(G3.lm)
 
+predict(G1.lm,xd2.G1.test,interval='prediction',level=0.95)
 
