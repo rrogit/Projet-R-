@@ -92,7 +92,7 @@ xd2.G1 = cbind(d2[,0:30],d2[,32:33])
 xd2.G2 = cbind(d2[,0:31],d2[,33])
 names(xd2.G2)[32]<-"G3"
 xd2.G3 = d2[,0:32]
-#Matrice decouper pour les notes de chaques pÃ©riode en 90 % train et 10 % test
+#Matrice decouper pour les notes de chaques période en 90 % train et 10 % test
 yd2.G1.train = yd2.G1[1:584]
 yd2.G1.test = yd2.G1[585:649]
 yd2.G2.train = yd2.G2[1:584]
@@ -146,27 +146,23 @@ G3.rf.lm = randomForest(G3~., data=d2.G3.train, ntree=500, na.action = na.omit)
 # predictionG2 = predict(G2.lm,xd2.G2.test,interval='prediction',level=0.95)
 # predictionG3 = predict(G3.lm,xd2.G3.test,interval='prediction',level=0.95)
 
-predictionAllAttributes = predict(G1.all.lm, xd2.G1.test, interval='prediction', level=0.95)
-rmse(predictionAllAttributes[, "fit"], yd2.G1.test)
+predictionAllAttributes = predict(G3.all.lm, xd2.G3.test, interval='prediction', level=0.95)
+rmse(predictionAllAttributes[, "fit"], yd2.G3.test)
 
-predictionCr = predict(G1.cr.lm, xd2.G1.test, interval='prediction', level=0.95)
-rmse(predictionCr[, "fit"], yd2.G1.test)
+predictionCr = predict(G3.cr.lm, xd2.G3.test, interval='prediction', level=0.95)
+rmse(predictionCr[, "fit"], yd2.G3.test)
 
-predictionAIC = predict(G1.lm,xd2.G1.test,interval='prediction',level=0.95)
+predictionAIC = predict(G3.lm,xd2.G3.test,interval='prediction',level=0.95)
 rmse(predictionAIC[, "fit"], yd2.G1.test)
 
-predictionRF = predict(G1.rf.lm, xd2.G1.test, interval='prediction', level=0.95)
-rmse(predictionRF, yd2.G1.test)
+predictionRF = predict(G3.rf.lm, xd2.G3.test, interval='prediction', level=0.95)
+rmse(predictionRF, yd2.G3.test)
 
 resultRMSERandomForest = {}
 ntrees = c(250, 500, 1000, 1500, 2000)
 for(ntree in ntrees){
   rf.mod = randomForest(G3~., data=d2.G3.train, ntree=ntree, na.action = na.omit)
   predictionRFNTree = predict(rf.mod, xd2.G3.test, interval='prediction', level=0.95)
-  resultRMSERandomForest[ntree] = rmse(predictionRFNTree, yd2.G1.test)
+  resultRMSERandomForest[ntree] = rmse(predictionRFNTree, yd2.G3.test)
 }
-plot(resultRMSERandomForest)
-
-# rmse(predictionG1[, "fit"], yd2.G1.test)
-# rmse(predictionG2[, "fit"], yd2.G2.test)
-# rmse(predictionG3[, "fit"], yd2.G3.test)
+plot(resultRMSERandomForest, ylab="RMSE", xlab="Number of trees")
