@@ -159,9 +159,10 @@ predictionRF = predict(G1.rf.lm, xd2.G1.test, interval='prediction', level=0.95)
 rmse(predictionRF, yd2.G1.test)
 
 resultRMSERandomForest = {}
-for(ntree in c(500, 1000, 1500, 2000)){
-  rf.mod = randomForest(G1~., data=d2.G1.train, ntree=ntree, na.action = na.omit)
-  predictionRFNTree = predict(rf.mod, xd2.G1.test, interval='prediction', level=0.95)
+ntrees = c(250, 500, 1000, 1500, 2000)
+for(ntree in ntrees){
+  rf.mod = randomForest(G3~., data=d2.G3.train, ntree=ntree, na.action = na.omit)
+  predictionRFNTree = predict(rf.mod, xd2.G3.test, interval='prediction', level=0.95)
   resultRMSERandomForest[ntree] = rmse(predictionRFNTree, yd2.G1.test)
 }
 plot(resultRMSERandomForest)
